@@ -6,11 +6,14 @@ const app = express();
 
 // init middleware
 app.use(morgan("common")); // log
-app.use(helmet()); //
-// app.use(compression()); //
+app.use(helmet());
+
+// app.use(compression());
 
 // init db
-
+require('./dbs/init.mongodb');
+const {checkOverload} = require('./helper/check.connect')
+checkOverload();
 //init routers
 app.get("/", (req, res, next) => {
     const str = `Hello`;
